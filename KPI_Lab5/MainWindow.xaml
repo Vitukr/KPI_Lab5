@@ -5,8 +5,40 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:KPI_Lab5"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="KPI Lab5 appSettings" Height="450" Width="800" WindowStartupLocation="CenterScreen">
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="5*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="9*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid DataContext="{Binding CurrentSetting}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"></ColumnDefinition>
+                    <ColumnDefinition Width="5*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <GroupBox Grid.Column="0" Header="Key">
+                    <TextBox x:Name="TextBoxKey" Text="{Binding Path=Key, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                </GroupBox>
+                <GroupBox Grid.Column="1" Header="Value">
+                    <TextBox x:Name="TextBoxValue" Text="{Binding Path=Value, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                </GroupBox>
+            </Grid>
+            <DataGrid Grid.Row="1" x:Name="DataGridAppSettings" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True"
+                      ItemsSource="{Binding Path=AllSettings, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                      SelectedItem="{Binding Path=CurrentSetting, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                      SelectionChanged="DataGridAppSettings_SelectionChanged"></DataGrid>
+        </Grid>
+        <StackPanel Grid.Column="1">
+            <Button x:Name="ButtonAll" Content="All Settings" Height="35" Click="ButtonAll_Click" IsDefault="True"></Button>
+            <Separator Height="10"></Separator>
+            <Button x:Name="ButtonAddUpdate" Content="Add/Update Settings" Height="35" Click="ButtonAddUpdate_Click"></Button>
+            <Separator Height="10"></Separator>
+            <Button x:Name="ButtonRemove" Content="Remove Settings" Height="35" Click="ButtonRemove_Click"></Button>
+        </StackPanel>
     </Grid>
 </Window>
